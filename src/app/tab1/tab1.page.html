@@ -1,0 +1,41 @@
+<ion-header color="primary" collapse="condense">
+  <ion-toolbar color="primary">
+    <ion-title>Cardápio</ion-title>
+    <ion-buttons (click)="cart()" slot="end">
+      <ion-icon style="font-size: 3vh;" name="cart-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar [(ngModel)]="listFilter" style="margin-top: 10px" placeholder="Buscar..."
+    class="custom"></ion-searchbar>
+
+  <ng-container *ngIf="cardapio$ | async; let cardapio; else noData">
+    <ng-container *ngIf="cardapio.length > 0; else noData">
+      <div *ngFor="let c of cardapio | filter: listFilter; trackBy: trackById" class="card-data">
+        <div class="title">{{c.nome}}</div>
+
+        <div class="body">
+          <div class="col" style="width: 40% !important;">
+            <img *ngIf="!c.img" src="../../../assets/no-image.jpg" alt="">
+            <img *ngIf="c.img" [src]="c.img" alt="">
+          </div>
+          <div class="col" style="flex-direction: column; align-items: flex-start; height: 100%;">
+            <div class="info">{{c.descricao}}</div>
+            <div class="price">{{c.preco | currency: 'BRL'}}</div>
+            <div style="align-self: flex-end;" (click)="addToCart(c)">
+              <ion-button size="small" color="primary">Adicionar <ion-icon name="add-outline"></ion-icon></ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="no-data-container">
+      <p>Nenhum Produto Encontrado</p>
+    </div>
+  </ng-template>
+</ion-content>

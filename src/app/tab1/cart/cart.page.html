@@ -1,0 +1,50 @@
+<ion-header color="primary" collapse="condense">
+  <ion-toolbar color="primary">
+    <ion-title>Carrinho</ion-title>
+    <ion-buttons (click)="back()" slot="start">
+      <ion-icon style="font-size: 3vh;" name="arrow-back-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="cart$ | async; let cart; else noData">
+    <ng-container *ngIf="cart.length > 0; else noData">
+      <div *ngFor="let c of cart" class="card-data">
+        <div class="body">
+          <div class="col" style="width: 40% !important;">
+            <img *ngIf="!c.produto.img" src="../../../assets/no-image.jpg" alt="">
+            <img *ngIf="c.produto.img" [src]="c.produto.img" alt="">
+          </div>
+          <div class="col" style="flex-direction: column; align-items: flex-start; height: 100%;">
+            <div class="title">{{c.produto.nome}}</div>
+            <div class="price">
+              <div class="info">x{{c.qtd}}</div> {{c.produto.preco | currency: 'BRL'}}
+            </div>
+          </div>
+          <ion-button size="default" (click)="remove(c.produto.id)" color="danger" fill="clear">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="no-data-container">
+      <p>Carrinho vazio</p>
+    </div>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Total: {{total() | currency: 'BRL'}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" (click)="finish()" color="primary">
+        <ion-icon name="checkmark-done-outline"></ion-icon>
+        Finalizar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

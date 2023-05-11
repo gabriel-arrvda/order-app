@@ -1,0 +1,70 @@
+.card-data{
+    // height: 12vh;
+    background-color: #ebebeb;
+    border-radius: 10px;
+    margin: 0px 16px; 
+    padding: 4px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh;
+    text-align: center;
+    font-size: 1.7vh;
+    gap: 1vh;
+
+    color: var(--ion-color-primary);
+}
+
+.card-data:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.title{
+    font-size: 1.8vh;
+    font-weight: 600;
+    text-align: left;
+}
+
+.body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2vh;
+}
+
+.col{
+    width: 100%;
+    font-size: 1.5vh;
+    flex-shrink: 3;
+    font-weight: 600;
+    align-items: center;
+    display: flex;
+    align-content: center;
+    justify-content: center; 
+    flex-direction: column;
+    text-align: left;
+
+    img{
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .price{
+        font-size: 1.3vh;
+        font-weight: 600;
+        color: --ion-color-primary;
+    }
+}
+
+.info{
+    font-size: 1.3vh;
+    font-weight: 400;
+    color: rgb(37, 37, 37)
+}
+
+ion-searchbar.custom {
+    --background: rgb(245, 245, 245)
+}

@@ -1,0 +1,61 @@
+.scan-box {
+    border: 2px solid var(--ion-color-primary);
+    box-shadow: 0 0 0 100vmax rgba(19, 6, 6, 0.7);
+    content: '';
+    border-radius: 10px;
+    display: block;
+    left: 50%;
+    height: 30vh;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    width: 60vw;
+  
+    .laser {
+      width: 2px;
+      background-color: var(--ion-color-primary-tint);
+      height: 100%;
+      position: absolute;
+      top: 0%;
+      z-index: 2;
+      box-shadow: 0 0 1px var(--ion-color-primary-shade);
+      animation: scanning 4s infinite;
+    }
+  
+    .diode {
+      animation: beam .02s infinite;
+    }
+  
+    @keyframes beam {
+      50% {
+        opacity: 0;
+      }
+    }
+    
+    @keyframes scanning {
+      50% {
+        transform: translateX(34vw);
+      }
+    }
+}
+
+.form{
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 25px;
+  
+  ion-icon{
+    font-size: 18vh;
+  }
+
+  p{
+    font-size: 3vh;
+    font-weight: 500;
+    color: var(--ion-color-success);
+  }
+  // gap: 15px;
+}

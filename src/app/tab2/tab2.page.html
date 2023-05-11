@@ -1,0 +1,36 @@
+<ion-header color="primary" collapse="condense">
+  <ion-toolbar color="primary">
+    <ion-title size="large">Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-searchbar [(ngModel)]="listFilter" style="margin-top: 10px" placeholder="Buscar..."
+    class="custom"></ion-searchbar>
+
+  <ng-container *ngIf="pedidos$ | async; let pedidos; else noData">
+    <ng-container *ngIf="pedidos.length > 0; else noData">
+      <div (click)="openCamera(p)" *ngFor="let p of pedidos | filter: listFilter; trackBy: trackById" class="card-data">
+        <div class="body">
+          <div class="title">#{{p.hash}}</div>
+          <div class="info">{{p.dataCreated | unixtime: ["DD/MM/YYYY HH:mm:ss"]}}</div>
+        </div>
+
+        <div class="body">
+          <div class="col" style="flex-direction: column; align-items: flex-start; height: 100%;">
+            <div *ngFor="let prod of p.produtos" class="info">{{prod.qtd}}x - {{prod.produto.nome}}</div>
+            <div class="price">{{p.total | currency: 'BRL'}}</div>
+          </div>
+          <ion-chip *ngIf="p.dataCompleted" color="success">Completo</ion-chip>
+          <ion-chip *ngIf="!p.dataCompleted" color="secondary">Aguardando</ion-chip>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="no-data-container">
+      <p>Nenhum Produto Encontrado</p>
+    </div>
+  </ng-template>
+</ion-content>
