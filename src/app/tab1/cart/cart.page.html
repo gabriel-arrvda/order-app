@@ -1,13 +1,13 @@
-<ion-header color="primary" collapse="condense">
-  <ion-toolbar color="primary">
-    <ion-title>Carrinho</ion-title>
-    <ion-buttons (click)="back()" slot="start">
-      <ion-icon style="font-size: 3vh;" name="arrow-back-outline"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Carrinho</ion-title>
+      <ion-buttons (click)="back()" slot="start">
+        <ion-icon style="font-size: 3vh;" name="arrow-back-outline"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
   <ng-container *ngIf="cart$ | async; let cart; else noData">
     <ng-container *ngIf="cart.length > 0; else noData">
       <div *ngFor="let c of cart" class="card-data">

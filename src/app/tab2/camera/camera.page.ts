@@ -26,7 +26,11 @@ export class CameraPage {
   ) { }
 
   ionViewWillEnter() {
-    this.startScanner()
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params['id']) {
+        this.startScanner(params['id'])
+      }
+    })
   }
 
   back() {
@@ -38,7 +42,8 @@ export class CameraPage {
     this.stopScanner()
   }
 
-  async startScanner() {
+  async startScanner(id: any) {
+    console.log(id)
     this.success = false
     const allowed = await this.checkPermission()
     if (allowed) {
@@ -53,8 +58,8 @@ export class CameraPage {
         this.stopScanner()
 
         try {
-          if (result.content === this.activatedRoute.snapshot.paramMap.get('id')) {
-            await this.fbService.updatePedido(this.activatedRoute.snapshot.paramMap.get('id'))
+          if (result.content === id) {
+            await this.fbService.updatePedido(id)
             this.success = true
             setTimeout(() => {
               this.back()
@@ -78,6 +83,7 @@ export class CameraPage {
     });
 
     await alert.present();
+    this.back()
   }
 
   async checkPermission() {

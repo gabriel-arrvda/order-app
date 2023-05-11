@@ -1,13 +1,13 @@
-<ion-header color="primary" collapse="condense">
-  <ion-toolbar color="primary">
-    <ion-buttons (click)="back()" slot="start">
-      <ion-icon style="font-size: 3vh;" name="arrow-back-outline"></ion-icon>
-    </ion-buttons>
-    <ion-title>Camera</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content fullscreen="true" [style.--background]="scanner ? '#00000000' : '#fff'">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons (click)="back()" slot="start">
+        <ion-icon style="font-size: 3vh;" name="arrow-back-outline"></ion-icon>
+      </ion-buttons>
+      <ion-title>Camera</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
   <div class="scan-box" *ngIf="scanner">
     <div class="diode">
       <div class="laser"></div>
