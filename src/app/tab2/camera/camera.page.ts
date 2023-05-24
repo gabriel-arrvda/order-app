@@ -43,7 +43,7 @@ export class CameraPage {
   }
 
   async startScanner(id: any) {
-    console.log(id)
+    console.log("result id", id)
     this.success = false
     const allowed = await this.checkPermission()
     if (allowed) {
@@ -54,20 +54,25 @@ export class CameraPage {
 
       const result = await BarcodeScanner.startScan();
 
+      console.log("result result", JSON.stringify(result))
       if (result.hasContent) {
         this.stopScanner()
 
         try {
-          if (result.content === id) {
+          console.log("🚀 ~ file: camera.page.ts:64 ~ CameraPage ~ startScanner ~ result.content == id:", result.content, id)
+          if (result.content == id) {
             await this.fbService.updatePedido(id)
             this.success = true
             setTimeout(() => {
               this.back()
             }, 3000)
+          } else {
+            this.presentError()
           }
 
-          this.presentError()
         } catch (e) {
+          console.error(e)
+          console.error(JSON.stringify(e))
           this.presentError()
         }
       }

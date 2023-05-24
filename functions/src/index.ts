@@ -15,7 +15,7 @@ export const getOrder = functions.https.onRequest(async (request, response) => {
 
         functions.logger.info(orders.docs)
 
-        if (!orders && orders.docs) {
+        if (orders && orders.docs) {
             const order = orders.docs[0].data();
             response.status(200).json({ msg: "Pedido encontrado", data: order });
         } else {

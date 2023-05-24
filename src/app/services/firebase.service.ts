@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import {
     addDoc,
     collection, collectionChanges, collectionData, CollectionReference, doc, Firestore,
+    getDocs,
     query, setDoc, updateDoc, where
 } from "@angular/fire/firestore";
 import { orderBy } from "firebase/firestore";
@@ -55,9 +56,17 @@ export class FirebaseService {
         return setDoc(ref, pedido)
     }
 
-    updatePedido(id: any) {
-        const ref = doc(collection(this.afs, 'pedidos'), id)
-        return updateDoc(ref, { dataCompleted: new Date().getTime() / 1000 })
+    async updatePedido(hash: any) {
+        let pedidosQuery = query<any>(
+            collection(this.afs, 'pedidos') as CollectionReference<any>,
+            where('hash', '==', hash)
+        )
+
+        let pedidosHash = await getDocs(pedidosQuery)
+
+        if (pedidosHash.docs.length === 0) throw new Error('Pedido não encontrado')
+
+        return updateDoc(pedidosHash.docs[0].ref, { dataCompleted: new Date().getTime() / 1000 })
     }
 
     getCardapio() {
